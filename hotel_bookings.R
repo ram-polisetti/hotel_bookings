@@ -1,9 +1,9 @@
-If you experience errors, remember that you can search the internet and the RStudio community for help:
-https://community.rstudio.com/#
+#If you experience errors, remember that you can search the internet and the RStudio community for help:
+#https://community.rstudio.com/#
 
 ## Step 1: Load packages
 
-Start by installing the required packages. If you have already installed and loaded `tidyverse`, `skimr`, and `janitor` in this session, feel free to skip the code chunks in this step.
+#Start by installing the required packages. If you have already installed and loaded `tidyverse`, `skimr`, and `janitor` in this session, feel free to skip the code chunks in this step.
 
 
 install.packages("tidyverse")
@@ -11,34 +11,34 @@ install.packages("skimr")
 install.packages("janitor")
 
 
-Once a package is installed, you can load it by running the `library()` function with the package name inside the parentheses:
+#Once a package is installed, you can load it by running the `library()` function with the package name inside the parentheses:
 
 library(tidyverse)
 library(skimr)
 library(janitor)
 
 ## Step 2: Import data
-The data in this example is originally from the article Hotel Booking Demand Datasets (https://www.sciencedirect.com/science/article/pii/S2352340918315191), written by Nuno Antonio, Ana Almeida, and Luis Nunes for Data in Brief, Volume 22, February 2019.
+#The data in this example is originally from the article Hotel Booking Demand Datasets (https://www.sciencedirect.com/science/article/pii/S2352340918315191), written by Nuno Antonio, Ana Almeida, and Luis Nunes for Data in Brief, Volume 22, February 2019.
 
-The data was downloaded and cleaned by Thomas Mock and Antoine Bichat for #TidyTuesday during the week of February 11th, 2020 (https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-11/readme.md).
+#The data was downloaded and cleaned by Thomas Mock and Antoine Bichat for #TidyTuesday during the week of February 11th, 2020 (https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-11/readme.md).
 
-You can learn more about the dataset here:
-https://www.kaggle.com/jessemostipak/hotel-booking-demand
+# You can learn more about the dataset here:
+# https://www.kaggle.com/jessemostipak/hotel-booking-demand
 
-In the chunk below, you will use the `read_csv()` function to import data from a .csv in the project folder called "hotel_bookings.csv" and save it as a data frame called `bookings_df`:
+# In the chunk below, you will use the `read_csv()` function to import data from a .csv in the project folder called "hotel_bookings.csv" and save it as a data frame called `bookings_df`:
 
 
 bookings_df <- read_csv("hotel_bookings.csv")
 
 ## Step 3: Getting to know your data
 
-Before you start cleaning your data, take some time to explore it. You can use several functions that you are already familiar with to preview your data, including the `head()` function in the code chunk below:
+# Before you start cleaning your data, take some time to explore it. You can use several functions that you are already familiar with to preview your data, including the `head()` function in the code chunk below:
 
 
 head(bookings_df)
 
 
-You can summarize or preview the data with the `str()` and `glimpse()` functions to get a better understanding of the data by running the code chunks below:
+# You can summarize or preview the data with the `str()` and `glimpse()` functions to get a better understanding of the data by running the code chunks below:
 
 
 str(bookings_df)
@@ -48,26 +48,26 @@ str(bookings_df)
 glimpse(bookings_df)
 
 
-You can also use `colnames()` to check the names of the columns in your data set. Run the code chunk below to find out the column names in this data set:
+# You can also use `colnames()` to check the names of the columns in your data set. Run the code chunk below to find out the column names in this data set:
 
 
 colnames(bookings_df)
 
 
-Use the `skim_without_charts()` function from the `skimr` package by running the code below:
+# Use the `skim_without_charts()` function from the `skimr` package by running the code below:
 
 
 skim_without_charts(bookings_df)
 
 ## Step 4: Cleaning your data
 
-Based on your notes you are primarily interested in the following variables: hotel, is_canceled, lead_time. Create a new data frame with just those columns, calling it `trimmed_df`.
+# Based on your notes you are primarily interested in the following variables: hotel, is_canceled, lead_time. Create a new data frame with just those columns, calling it `trimmed_df`.
 
 trimmed_df <- bookings_df %>% 
   select(hotel, is_canceled, lead_time)
 
 
-Rename the variable 'hotel' to be named 'hotel_type' to be crystal clear on what the data is about:
+# Rename the variable 'hotel' to be named 'hotel_type' to be crystal clear on what the data is about:
 
 
 trimmed_df %>% 
@@ -75,7 +75,7 @@ trimmed_df %>%
   rename(hotel_type = hotel)
 
 
-In this example, you can combine the arrival month and year into one column using the unite() function:
+# In this example, you can combine the arrival month and year into one column using the unite() function:
 
 
 example_df <- bookings_df %>%
@@ -85,7 +85,7 @@ example_df <- bookings_df %>%
 
 ## Step 5: Another way of doing things
 
-You can also use the`mutate()` function to make changes to your columns. Let's say you wanted to create a new column that summed up all the adults, children, and babies on a reservation for the total number of people. Modify the code chunk below to create that new column: 
+# You can also use the`mutate()` function to make changes to your columns. Let's say you wanted to create a new column that summed up all the adults, children, and babies on a reservation for the total number of people. Modify the code chunk below to create that new column: 
 
 example_df <- bookings_df %>%
   mutate(guests = adults + children + babies)
@@ -93,7 +93,7 @@ example_df <- bookings_df %>%
 head(example_df)
 
 
-Great. Now it's time to calculate some summary statistics! Calculate the total number of canceled bookings and the average lead time for booking - you'll want to start your code after the %>% symbol. Make a column called 'number_canceled' to represent the total number of canceled bookings. Then, make a column called 'average_lead_time' to represent the average lead time. Use the `summarize()` function to do this in the code chunk below:
+# Great. Now it's time to calculate some summary statistics! Calculate the total number of canceled bookings and the average lead time for booking - you'll want to start your code after the %>% symbol. Make a column called 'number_canceled' to represent the total number of canceled bookings. Then, make a column called 'average_lead_time' to represent the average lead time. Use the `summarize()` function to do this in the code chunk below:
 
 
 example_df <- bookings_df %>%
