@@ -103,4 +103,46 @@ example_df <- bookings_df %>%
 head(example_df)
 
 
-#END of the project
+# Manipulating your data
+
+hotel_bookings <- bookings_df
+# Let's say you want to arrange the data by most lead time to least lead time because you want to focus on bookings that were made far in advance. You decide you want to try using the `arrange()` function and run the following command: 
+
+arrange(hotel_bookings, lead_time)
+
+
+# `arrange()`  automatically orders by ascending order, and you need to specifically tell it when to order by descending order, like the below code chunk below:
+
+
+arrange(hotel_bookings, desc(lead_time))
+
+head(hotel_bookings)
+
+hotel_bookings_v2 <-
+  arrange(hotel_bookings, desc(lead_time))
+
+head(hotel_bookings_v2)
+
+max(hotel_bookings$lead_time)
+min(hotel_bookings$lead_time)
+mean(hotel_bookings$lead_time)
+mean(hotel_bookings_v2$lead_time)
+
+hotel_bookings_city <- 
+  filter(hotel_bookings, hotel_bookings$hotel=="City Hotel")
+
+head(hotel_bookings_city)
+
+mean(hotel_bookings_city$lead_time)
+
+hotel_summary <- 
+  hotel_bookings %>%
+  group_by(hotel) %>%
+  summarise(average_lead_time=mean(lead_time),
+            min_lead_time=min(lead_time),
+            max_lead_time=max(lead_time))
+
+head(hotel_summary)
+
+average_lead_time_any <- mean(hotel_bookings$lead_time)
+average_lead_time_any
